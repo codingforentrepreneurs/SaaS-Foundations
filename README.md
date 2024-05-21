@@ -8,3 +8,6 @@ The goal of this project is to learn how to create a reusable foundation for bui
 ## References
 
 - Deploy Django on [Railway](https://kirr.co/qysgeu) with [this Dockerfile and guide](https://www.codingforentrepreneurs.com/blog/deploy-django-on-railway-with-this-dockerfile/)
+
+
+Thank you to [Neon](https://kirr.co/eu0b31) for helping bring this course to life!
