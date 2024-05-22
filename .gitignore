@@ -1,3 +1,10 @@
+# ignore vendor static files
+src/staticfiles/vendors
+
+# ignore local static file root
+# or "local cdn"
+local-cdn/
+
 .DS_Store
 venv/
 # Byte-compiled / optimized / DLL files
