@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+
+{% block head_title %}{{ page_title }} - {{ block.super }}{% endblock head_title %}
+
+
+{% block content %}
+<h1>Enter the password</h1>
+
+<form method="POST">{% csrf_token %}
+    <input type="password" name="code" placeholder="Enter the code" />
+    <button type='submit'>Submit</button>
+</form>
+{% endblock content %}
+
