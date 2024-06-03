@@ -61,6 +61,7 @@ Values include:
 - `EMAIL_HOST_USER=""`
 - `EMAIL_HOST_PASSWORD=""`
 - `ADMIN_USER_EMAIL=""`
+- `STRIPE_SECRET_KEY=""`
 
 
 ### Create the _DJANGO_SECRET_KEY_
@@ -158,6 +159,14 @@ python manage.py createsuperuser
 ```bash
 python manage.py vendor_pull
 ```
+
+
+### Create a Stripe Account
+
+1. Sign up on [Stripe.com](https://www.stripe.com) for an account
+2. Get or create a Stripe Secret API Key (Dashboard > Developers > API keys > _Secret key_ )
+3. Update _dotenv_ (`.env`) with the value `STRIPE_SECRET_KEY` with your key.
+
 
 ### Run the Server
 
