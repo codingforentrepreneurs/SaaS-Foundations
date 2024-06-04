@@ -10,19 +10,26 @@
     <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
         <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
             <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Designed for business teams like yours</h2>
-            <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
+            <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">Here at SaaS we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
+
+            <div class="flex justify-center">
+                <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+                    <li class="me-2">
+                        <a href="{{ mo_url }}" class="{% if active == 'month' %}inline-block px-4 py-3 text-white bg-blue-600 rounded-lg active{% else %}inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white{% endif %}" aria-current="page">Monthly</a>
+                    </li>
+                    <li class="me-2">
+                        <a href="{{ yr_url }}"  class="{% if active == 'year' %}inline-block px-4 py-3 text-white bg-blue-600 rounded-lg active{% else %}inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white{% endif %}">Yearly</a>
+                    </li>
+                </ul>
+            </div>
         </div>
         <div class="space-y-8 md:space-y-0 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
 
             <!-- Pricing Cards -->
-            {% for price_obj in monthly_qs %}
+            {% for price_obj in object_list %}
                 {% include 'subscriptions/snippets/pricing-card.html' with object=price_obj %}
             {% endfor %}
-            
-
-            {% for price_obj in yearly_qs %}
-                {% include 'subscriptions/snippets/pricing-card.html' with object=price_obj %}
-            {% endfor %}
+        
             
         </div>
     </div>
