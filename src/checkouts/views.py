@@ -41,4 +41,19 @@ def checkout_redirect_view(request):
 
 
 def checkout_finalize_view(request):
-    return 
+    session_id = request.GET.get('session_id')
+    checkout_r = helpers.billing.get_checkout_session(session_id, raw=True)
+    customer_id = checkout_r.customer
+    sub_stripe_id = checkout_r.subscription
+    sub_r = helpers.billing.get_subscription(sub_stripe_id, raw=True)
+    sub_plan = sub_r.plan
+    sub_plan_price_stripe_id = sub_plan.id
+    price_qs = SubscriptionPrice.objects.filter(stripe_id=sub_plan_price_stripe_id)
+    print(price_qs)
+    # print(sub_r )
+    context = {
+        "subscription": sub_r,
+        "checkout": checkout_r
+    }
+
+    return render(request, "checkout/success.html", context)
