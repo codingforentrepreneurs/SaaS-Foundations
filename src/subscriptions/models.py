@@ -75,7 +75,7 @@ class SubscriptionPrice(models.Model):
         """
         remove decimal places
         """
-        return self.price * 100
+        return int(self.price * 100)
 
     @property
     def product_stripe_id(self):
