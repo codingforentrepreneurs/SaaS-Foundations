@@ -48,6 +48,7 @@ urlpatterns = [
     path("about/", about_view),
     path("hello-world/", home_view),
     path("hello-world.html", home_view),
+    path('accounts/billing/', subscriptions_views.user_subscription_view, name='user_subscription'),
     path('accounts/', include('allauth.urls')),
     path('protected/user-only/', user_only_view),
     path('protected/staff-only/', staff_only_view),

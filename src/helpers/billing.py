@@ -101,6 +101,7 @@ def get_subscription(stripe_id, raw=True):
     response =  stripe.Subscription.retrieve(
             stripe_id
         )
+    print(response)
     if raw:
         return response
     return serialize_subscription_data(response)
