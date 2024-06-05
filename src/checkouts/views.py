@@ -45,7 +45,12 @@ def checkout_redirect_view(request):
 
 def checkout_finalize_view(request):
     session_id = request.GET.get('session_id')
-    customer_id, plan_id, sub_stripe_id = helpers.billing.get_checkout_customer_plan(session_id)
+    checkout_data = helpers.billing.get_checkout_customer_plan(session_id)
+    plan_id = checkout_data.get('plan_id')
+    customer_id = checkout_data.get('customer_id')
+    sub_stripe_id = checkout_data.get("sub_stripe_id")
+    current_period_start = checkout_data.get('current_period_start')
+    current_period_end = checkout_data.get('current_period_end')
     try:
         sub_obj = Subscription.objects.get(subscriptionprice__stripe_id=plan_id)
     except:
@@ -59,7 +64,9 @@ def checkout_finalize_view(request):
     updated_sub_options = {
         "subscription": sub_obj,
         "stripe_id": sub_stripe_id,
-        "user_cancelled": False
+        "user_cancelled": False,
+        "current_period_start": current_period_start,
+        "current_period_end": current_period_end,
     }
     try:
         _user_sub_obj = UserSubscription.objects.get(user=user_obj)
@@ -76,8 +83,12 @@ def checkout_finalize_view(request):
     if _user_sub_exists:
         # cancel old sub
         old_stripe_id = _user_sub_obj.stripe_id
-        if old_stripe_id is not None:
-            helpers.billing.cancel_subscription(old_stripe_id, reason="Auto ended, new membership", feedback="other")
+        same_stripe_id = sub_stripe_id == old_stripe_id
+        if old_stripe_id is not None and not same_stripe_id:
+            try:
+                helpers.billing.cancel_subscription(old_stripe_id, reason="Auto ended, new membership", feedback="other")
+            except:
+                pass
         # assign new sub
         for k, v in updated_sub_options.items():
             setattr(_user_sub_obj, k, v)
