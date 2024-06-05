@@ -153,7 +153,9 @@ class SubscriptionPrice(models.Model):
 class UserSubscription(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     subscription = models.ForeignKey(Subscription, on_delete=models.SET_NULL, null=True, blank=True)
+    stripe_id = models.CharField(max_length=120, null=True, blank=True)
     active = models.BooleanField(default=True)
+    user_cancelled = models.BooleanField(default=False)
 
 
 def user_sub_post_save(sender, instance, *args, **kwargs):
