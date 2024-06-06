@@ -1,0 +1,26 @@
+name: 2 - Test Django Basic
+
+on:
+  workflow_dispatch:
+  push:
+    branch:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12' 
+      - name: Install Requirements
+        run: |
+          python -m pip install pip --upgrade
+          python -m pip install -r requirements.txt
+      - name: Django Tests
+        working-directory: ./src
+        run: |
+          python manage.py test
