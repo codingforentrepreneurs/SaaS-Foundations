@@ -54,3 +54,7 @@ jobs:
         working-directory: ./src
         run: |
           python manage.py test
+      - name: Clean Up Step
+        continue-on-error: true
+        run: |
+          neonctl branches delete "${{ env.NEON_GITHUB_BRANCH }}" --project-id "${{ env.NEON_PROJECT_ID }}"
