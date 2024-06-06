@@ -1,0 +1,54 @@
+name: 6 - Scheduled Production Worker
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 1,12 * * *'
+    - cron: '0 4 1 * *'
+
+# https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      DJANGO_DEBUG: 0
+      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+      NEON_API_KEY: ${{ secrets.NEON_API_KEY }}
+      NEON_PROJECT_ID: ${{ secrets.NEON_PROJECT_ID }}
+      NEON_PROD_BRANCH: "main"
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.11"
+      - name: Install Neon CLI
+        run: |
+          npm install -g neonctl
+      - name: Database URL Env Val for new Github Actions branch
+        run: |
+          MY_NEON_CONN_STRING=$(neonctl connection-string --branch "${{ env.NEON_PROD_BRANCH }}" --project-id "${{ env.NEON_PROJECT_ID }}")
+          echo "DATABASE_URL=$MY_NEON_CONN_STRING" >> $GITHUB_ENV
+      - name: Setup Django Secret Key
+        run: |
+          MY_GEN_KEY=$(openssl rand -base64 32)
+          echo "DJANGO_SECRET_KEY=$MY_GEN_KEY" >> $GITHUB_ENV
+      - name: Install Requirements
+        run: |
+          python -m pip install pip --upgrade
+          python -m pip install -r requirements.txt
+      - name: Django Users Sync Stripe Subscriptions
+        if: github.event.schedule != '0 4 1 * *'
+        working-directory: ./src
+        run: |
+          python manage.py sync_user_subs --day-start 0 --day-end 1
+      - name: Django Users Clear Dangling Stripe Subscriptions
+        working-directory: ./src
+        if: github.event.schedule == '0 4 1 * *'
+        run: |
+          python manage.py sync_user_subs --clear-dangling
