@@ -29,7 +29,7 @@ from .views import (
 )
 
 urlpatterns = [
-    path("", landing_views.landing_page_view, name='home'),
+    path("", landing_views.landing_dashboard_page_view, name='home'),
     path("checkout/sub-price/<int:price_id>/", 
             checkout_views.product_price_redirect_view,
             name='sub-price-checkout'
