@@ -3,7 +3,7 @@ name: 5 - Branch Neon DB for Django Tests
 on:
   workflow_dispatch:
   push:
-    branch:
+    branches:
       - main
 
 jobs:
