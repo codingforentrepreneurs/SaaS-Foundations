@@ -1,7 +1,7 @@
 {
   "scripts": {
     "watch": "tailwindcss -i src/staticfiles/base_tailwind/tailwind-input.css -o src/staticfiles/vendors/tailwind-out.css --watch",
-    "build": "tailwindcss -i src/staticfiles/base_tailwind/tailwind-input.css -o src/staticfiles/css/saas-tailwind.min.css --build"
+    "build": "tailwindcss -i src/staticfiles/base_tailwind/tailwind-input.css -o src/staticfiles/css/saas-tailwind.min.css --build --minify"
   },
   "devDependencies": {
     "flowbite": "^2.3.0",
