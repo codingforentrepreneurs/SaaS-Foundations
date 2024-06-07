@@ -232,6 +232,8 @@ class UserSubscription(models.Model):
     current_period_end = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
     cancel_at_period_end = models.BooleanField(default=False)
     status = models.CharField(max_length=20, choices=SubscriptionStatus.choices, null=True, blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     objects = UserSubscriptionManager()
 
