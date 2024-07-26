@@ -1,0 +1,22 @@
+{% extends "account/signup.html" %}
+{% load i18n %}
+{% load allauth_ui %}
+{% load widget_tweaks %}
+{% block content %}
+    {% include 'nav/navbar.html' %}
+    {% include 'base/css.html' %}
+    {% trans "Sign Up" as heading %}
+    {% blocktranslate asvar subheading %}Already have an account? Then please <a href="{{ login_url }}" class="link">sign in</a>.{% endblocktranslate %}
+    {% #container heading=heading subheading=subheading  %}
+    {% if not SOCIALACCOUNT_ONLY %}
+        {% url 'account_signup' as action_url %}
+        {% #form form=form url=action_url button_text=heading %}
+        {{ redirect_field }}
+        {% csrf_token %}
+        {% /form %}
+    {% endif %}
+    {% if SOCIALACCOUNT_ENABLED %}
+        {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+    {% endif %}
+    {% /container %}
+{% endblock %}
