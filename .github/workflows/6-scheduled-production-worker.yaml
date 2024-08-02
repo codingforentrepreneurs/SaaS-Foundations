@@ -2,9 +2,9 @@ name: 6 - Scheduled Production Worker
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 1,12 * * *'
-    - cron: '0 4 1 * *'
+  #schedule:
+  # - cron: '0 1,12 * * *'
+  # - cron: '0 4 1 * *'
 
 # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
 jobs:
