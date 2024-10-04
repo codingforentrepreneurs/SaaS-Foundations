@@ -1,21 +1,72 @@
-MIT License
+# cineos Software License Agreement
 
-Copyright (c) 2024 Coding For Entrepreneurs
+Version 1.0, [04.oct.2024]
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+## 1. Definitions
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+"Software" refers to cineos, including all associated software components, documentation, and updates provided by the Licensor.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+"Licensor" refers to [LightWave Media LLC], the copyright holder and provider of the Software.
+
+"Licensee" refers to the individual or entity that has agreed to the terms of this License and is granted the rights herein.
+
+## 2. Grant of License
+
+Subject to the terms and conditions of this Agreement, Licensor hereby grants to Licensee a non-exclusive, non-transferable license to use the Software for the purpose of managing cinematography and film production processes.
+
+## 3. Restrictions
+
+Licensee shall not:
+a) Modify, reverse engineer, decompile, or disassemble the Software.
+b) Distribute, sublicense, lease, rent, loan, or otherwise make the Software available to any third party.
+c) Remove or alter any proprietary notices or labels on the Software.
+d) Use the Software in any manner that infringes the intellectual property rights of Licensor or any third party.
+
+## 4. Intellectual Property
+
+Licensee acknowledges that all right, title, and interest in and to the Software, including all intellectual property rights, are and shall remain with Licensor.
+
+## 5. Data and Privacy
+
+a) Ownership of Data: All data input by Licensee remains the property of Licensee.
+b) Data Protection: Licensor will handle all data in accordance with its Privacy Policy and applicable data protection laws.
+c) Data Portability: Licensee may export their data from the Software at any time.
+
+## 6. Subscription and Payments
+
+a) The Software is provided on a subscription basis. Fees are based on the chosen subscription tier.
+b) Licensor reserves the right to change subscription fees upon notice to Licensee.
+
+## 7. Termination
+
+This License is effective until terminated. Licensor may terminate this License at any time if Licensee breaches any of its terms. Upon termination, Licensee shall cease all use of the Software and destroy all copies.
+
+## 8. Disclaimer of Warranty
+
+THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND. LICENSOR DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT.
+
+## 9. Limitation of Liability
+
+IN NO EVENT SHALL LICENSOR BE LIABLE FOR ANY SPECIAL, INCIDENTAL, INDIRECT, OR CONSEQUENTIAL DAMAGES WHATSOEVER ARISING OUT OF OR RELATED TO THE USE OR INABILITY TO USE THE SOFTWARE.
+
+## 10. Updates and Support
+
+Licensor may, at its discretion, provide updates or support for the Software. Terms of any updates or support will be specified separately.
+
+## 11. Third-Party Integrations
+
+Use of third-party integrations within the Software is subject to the terms and conditions of those third parties.
+
+## 12. Governing Law
+
+This Agreement shall be governed by and construed in accordance with the laws of [Your Jurisdiction], without regard to its conflict of law provisions.
+
+## 13. Entire Agreement
+
+This Agreement constitutes the entire agreement between the parties with respect to the use of the Software and supersedes all prior or contemporaneous communications and proposals, whether oral or written, between the parties.
+
+By using the Software, Licensee acknowledges that they have read this Agreement, understand it, and agree to be bound by its terms and conditions.
+
+LightWave Media LLC
+Joel Schaeffer
+jeschaeffer@cineos.io
