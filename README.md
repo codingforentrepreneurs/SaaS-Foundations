@@ -1,6 +1,5 @@
 # cineos SaaS
 
-***_Coming soon_***
 
 cineos is a comprehensive SaaS application designed specifically for cinematographers. Built on the solid foundation of the codingforentrepreneurs/SaaS-Foundations repository, cineos leverages cutting-edge technologies to streamline the film production process. Our stack includes Django for robust backend development, Tailwind CSS for sleek and responsive design, and htmx for dynamic content loading. We utilize Neon Postgres for efficient data management and Redis for high-performance caching.
 
@@ -36,7 +35,7 @@ cineos is a comprehensive SaaS application designed specifically for cinematogra
 ```bash
 mkdir -p ~/dev/cineos
 cd ~/dev/cineos
-git clone https://github.com/yourusername/cineos.git .
+
 ```
 
 ### Create and Activate Virtual Environment
