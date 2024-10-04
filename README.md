@@ -1,70 +1,83 @@
-# SaaS Foundations
+# cineos SaaS
 
-Build the foundations for a Software as a Service business by leveraging Django, Tailwind, htmx, Neon Postgres, Redis, and more.
+***_Coming soon_***
 
-The goal of this project is to learn how to create a reusable foundation for building SaaS products. When release, this course will span multiple topics and give you a solid foundation into build your business.
+cineos is a comprehensive SaaS application designed specifically for cinematographers. Built on the solid foundation of the codingforentrepreneurs/SaaS-Foundations repository, cineos leverages cutting-edge technologies to streamline the film production process. Our stack includes Django for robust backend development, Tailwind CSS for sleek and responsive design, and htmx for dynamic content loading. We utilize Neon Postgres for efficient data management and Redis for high-performance caching.
 
+## Features
 
-## References
+- Script Breakdown: Easily analyze and break down scripts into manageable chunks.
+- Shot List Creation: Intuitive tools for creating and managing comprehensive shot lists.
+- Resource Management: Efficiently manage equipment, locations, and crew schedules.
+- Storyboard Integration: Create and visualize storyboards directly within the application.
+- Collaboration Tools: Streamline communication between team members.
+- Scalable Architecture: Designed to handle projects of any size, from indie films to blockbusters.
 
-- Deploy Django on [Railway](https://kirr.co/qysgeu) with [this Dockerfile and guide](https://www.codingforentrepreneurs.com/blog/deploy-django-on-railway-with-this-dockerfile/)
-- Create a One-Off Secret Key for Django [blog post](https://www.codingforentrepreneurs.com/blog/create-a-one-off-django-secret-key/)
+## Technology Stack
 
-
-Thank you to [Neon](https://kirr.co/eu0b31) for helping bring this course to life!
-
+- Backend: Django
+- Frontend: Tailwind CSS, htmx
+- Database: Neon Postgres
+- Caching: Redis
+- Hosting: [To be determined]
 
 ## Getting Started
 
-### Clone
+### Prerequisites
+
+- Python 3.11 or higher
+- Git
+- Pip (Python package installer)
+- A Neon account for Postgres database
+- A Stripe account for payment processing
+
+### Clone the Repository
+
 ```bash
-mkdir -p ~/dev/saas
-cd ~/dev/saas
-git clone https://github.com/codingforentrepreneurs/SaaS-Foundations .
+mkdir -p ~/dev/cineos
+cd ~/dev/cineos
+git clone https://github.com/yourusername/cineos.git .
 ```
 
-### Create Virtual Environment
+### Create and Activate Virtual Environment
 
 *macOS/Linux*
 ```bash
-python3 --version # should be 3.11 or higher
 python3 -m venv venv
 source venv/bin/activate
 ```
 
 *Windows*
 ```bash
-c:\Python312\python.exe -m venv venv
+python -m venv venv
 .\venv\Scripts\activate
 ```
 
-### Install Requirements
-```bash
-# with venv activated
-pip install pip --upgrade && pip install -r requirements.txt
-```
-
-### Sample dotenv to dotnev
+### Install Dependencies
 
 ```bash
-cp .env.sample .env
-cat .env
+pip install --upgrade pip
+pip install -r requirements.txt
 ```
-Values include:
-- `DJANGO_DEBUG=1`
-- `DJANGO_SECRET_KEY=""`
-- `DATABASE_URL=""`
-- `EMAIL_HOST="smtp.gmail.com"`
-- `EMAIL_PORT="587"`
-- `EMAIL_USE_TLS=True`
-- `EMAIL_USE_SSL=False`
-- `EMAIL_HOST_USER=""`
-- `EMAIL_HOST_PASSWORD=""`
-- `ADMIN_USER_EMAIL=""`
-- `STRIPE_SECRET_KEY=""`
 
+### Configure Environment Variables
 
-### Create the _DJANGO_SECRET_KEY_
+1. Copy the sample environment file:
+   ```bash
+   cp .env.sample .env
+   ```
+
+2. Open `.env` and update the following values:
+   - `DJANGO_DEBUG`: Set to 1 for development, 0 for production
+   - `DJANGO_SECRET_KEY`: Generate a new secret key (instructions below)
+   - `DATABASE_URL`: Your Neon Postgres connection string
+   - `EMAIL_*`: Configure your email settings
+   - `ADMIN_USER_EMAIL`: Set the admin email address
+   - `STRIPE_SECRET_KEY`: Your Stripe secret key
+
+### Generate Django Secret Key
+
+Run one of the following commands and copy the output to `DJANGO_SECRET_KEY` in `.env`:
 
 ```bash
 python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
@@ -78,72 +91,38 @@ or
 python -c 'import secrets; print(secrets.token_urlsafe(64))'
 ```
 
-Once you have this value, add update `DJANGO_SECRET_KEY` in `.env`.
+### Set Up Neon Postgres Database
 
+1. Install Neon CLI:
+   ```bash
+   brew install neonctl  # For macOS, use appropriate method for your OS
+   ```
 
-### Create [Neon](https://kirr.co/eu0b31) Postgres Database
+2. Authenticate with Neon:
+   ```bash
+   neonctl auth
+   ```
 
+3. Create a new Neon project (optional):
+   ```bash
+   neonctl projects create --name cineos
+   ```
 
-#### Install Neon CLI
-Using the [Neon cli](https://neon.tech/docs/reference/cli-install) via [homebrew](https://brew.sh/):
+4. Get your project ID:
+   ```bash
+   PROJECT_ID=$(neonctl projects list | grep "cineos" | awk -F '│' '{print $2}' | xargs)
+   ```
 
-```bash
-brew install neonctl
-```
+5. Get the database connection string:
+   ```bash
+   neonctl connection-string --project-id "$PROJECT_ID"
+   ```
 
-#### Login to Neon CLI
-
-```bash
-neonctl auth
-```
-This will open a browser window to login.
-
-####  Create a new Neon project (optional)
-```bash
-neonctl projects create --name saas
-```
-
-#### Get the Project ID
-
-Once created, get the project id: 
-
-```bash
-neonctl projects list
-```
-Projects
-
-```bash
-┌──────────────────────────┬────────────────────────────┬───────────────┬──────────────────────┐
-│ Id                       │ Name                       │ Region Id     │ Created At           │
-├──────────────────────────┼────────────────────────────┼───────────────┼──────────────────────┤
-│ steep-base-11409687      │ saas                       │ aws-us-east-2 │ 2024-06-02T04:03:07Z │
-└──────────────────────────┴────────────────────────────┴───────────────┴──────────────────────┘
-```
-
-```bash
-PROJECT_ID=steep-base-11409687
-```
-Replace `steep-base-11409687` with your project id.
-
-Or using the shortcut:
-
-```bash
-PROJECT_ID=$(neonctl projects list | grep "saas" | awk -F '│' '{print $2}' | xargs)
-```
-
-#### Get the Database Connection String
-
-```bash
-neonctl connection-string --project-id "$PROJECT_ID"
-```
-Set this value to `DATABASE_URL` in `.env`. 
-
+6. Set the `DATABASE_URL` in `.env` with the obtained connection string.
 
 ### Run Migrations
 
 ```bash
-source venv/bin/activate 
-# or .\venv\Scripts\activate if windows
 cd src
 python manage.py migrate
 ```
@@ -154,26 +133,45 @@ python manage.py migrate
 python manage.py createsuperuser
 ```
 
-### Pull Vendor Static Files
+### Install Vendor Static Files
 
 ```bash
 python manage.py vendor_pull
 ```
 
+### Set Up Stripe
 
-### Create a Stripe Account
+1. Sign up for a Stripe account at [stripe.com](https://www.stripe.com)
+2. Obtain your Stripe Secret API Key from the Dashboard > Developers > API keys
+3. Update `STRIPE_SECRET_KEY` in `.env` with your key
 
-1. Sign up on [Stripe.com](https://www.stripe.com) for an account
-2. Get or create a Stripe Secret API Key (Dashboard > Developers > API keys > _Secret key_ )
-3. Update _dotenv_ (`.env`) with the value `STRIPE_SECRET_KEY` with your key.
-
-
-### Run the Server
+### Run the Development Server
 
 ```bash
 python manage.py runserver
 ```
 
-Ready to roll! 🚀
+Your cineos instance should now be running at `http://127.0.0.1:8000/`.
 
-Much more coming soon!
+## Deployment
+
+Detailed deployment instructions will be provided soon. We are currently evaluating the best hosting solutions for cineos.
+
+## Contributing
+
+We welcome contributions to cineos! Please read our [CONTRIBUTING.md](CONTRIBUTING.md) file for details on our code of conduct and the process for submitting pull requests.
+
+## Support
+
+If you encounter any issues or have questions, please file an issue on our GitHub repository or contact our support team at support@cineos.io.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE.md).
+
+## Acknowledgments
+
+- [Coding for Entrepreneurs](https://www.codingforentrepreneurs.com/) for the SaaS-Foundations repository
+- All the open-source projects that make cineos possible
+
+Stay tuned for more updates as we continue to develop and enhance cineos! 🎥🚀
