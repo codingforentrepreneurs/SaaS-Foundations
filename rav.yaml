@@ -24,9 +24,9 @@ scripts:
   docker_build:
     - docker build -t cfe-saas-foundations:latest .
   docker_stop:
-    - docker stop $(docker ps -q --filter ancestor=cfe-saas-foundations:latest)
+    - docker stop cfe-saas-foundations
   docker_run:
-    - docker run --rm --env-file .env -e PORT=8080 -p 8080:8080 cfe-saas-foundations:latest
+    - docker run --rm --name cfe-saas-foundations --env-file .env -e PORT=8080 -p 8080:8080 cfe-saas-foundations:latest
   docker_shell:
     - docker run --rm -it --env-file .env cfe-saas-foundations:latest /bin/bash
 

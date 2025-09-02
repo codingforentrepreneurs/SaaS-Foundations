@@ -128,9 +128,9 @@ DATABASES = {
 }
 
 CONN_MAX_AGE = config("CONN_MAX_AGE", cast=int, default=300)
-DATABASE_URL = config("DATABASE_URL", default="")
+DATABASE_URL = config("DATABASE_URL", default="", cast=str)
 
-if DATABASE_URL:
+if DATABASE_URL and DATABASE_URL != "":
     import dj_database_url
 
     DATABASES = {
@@ -181,10 +181,14 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Django Allauth Config
 LOGIN_REDIRECT_URL = "/"
-ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+ACCOUNT_LOGIN_METHODS = {"username", "email"}
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[CFE] "
-ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_SIGNUP_FIELDS = ["email*", "username*", "password1*", "password2*"]
+
+# deprecated in Allauth
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 
 AUTHENTICATION_BACKENDS = [
     # ...
@@ -196,7 +200,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 SOCIALACCOUNT_PROVIDERS = {"github": {"VERIFIED_EMAIL": True}}
-
+ALLAUTH_UI_THEME = "light"
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/

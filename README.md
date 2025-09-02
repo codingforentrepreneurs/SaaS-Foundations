@@ -138,6 +138,10 @@ Review the [rav.yaml](./rav.yaml) (or [rav](https://github.com/jmitchel3/rav) do
 - `rav download staticfiles_dev` - Download vendor static files for development
 
 
+### Upcoming Changes
+- [] Remove Django Allauth-UI and Slippers. While these tools can be great, they have been causing more issues than they have been worth.
+- [] Docker Compose support for Postgres, Redis, and more.
+
 
 ### Changelog
 
