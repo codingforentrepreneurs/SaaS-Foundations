@@ -1,4 +1,4 @@
-name: 6 - Scheduled Production Worker
+name: 5 - Scheduled Production Worker
 
 on:
   workflow_dispatch:
