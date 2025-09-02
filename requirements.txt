@@ -1,4 +1,4 @@
-Django>=5.0,<5.1
+Django>=5.2,<5.3
 gunicorn
 python-decouple
 psycopg[binary]
@@ -9,3 +9,4 @@ django-allauth[socialaccount]
 django-allauth-ui
 django-widget-tweaks
 stripe
+slippers

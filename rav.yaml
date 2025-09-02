@@ -1,0 +1,71 @@
+description: |
+  rav is a simple tool to help run commands. 
+  install with pip install rav
+
+scripts:
+  install:
+    - venv/bin/python -m pip install -r requirements.txt
+  install_dev:
+    - venv/bin/python -m pip install -r requirements.txt
+    - venv/bin/python -m pip install -r requirements.dev.txt
+  makemigrations:
+    - venv/bin/python src/manage.py makemigrations
+  migrate:
+    - venv/bin/python src/manage.py migrate
+  dev:
+    - venv/bin/python src/manage.py runserver 8080
+  test:
+    - cd src && ../venv/bin/python manage.py test
+  vendors_pull:
+    # grab vendor files to serve via whitenoise
+    - venv/bin/rav download staticfiles_dev
+  collectstatic:
+    - cd src && ../venv/bin/python manage.py collectstatic --noinput
+  docker_build:
+    - docker build -t cfe-saas-foundations:latest .
+  docker_stop:
+    - docker stop $(docker ps -q --filter ancestor=cfe-saas-foundations:latest)
+  docker_run:
+    - docker run --rm --env-file .env -e PORT=8080 -p 8080:8080 cfe-saas-foundations:latest
+  docker_shell:
+    - docker run --rm -it --env-file .env cfe-saas-foundations:latest /bin/bash
+
+downloads:
+  staticfiles_prod:
+    name: vendor
+    destination: staticfiles/vendors
+    verbose: true
+    raise_on_error: true
+    overwrite: true
+    files:
+      - name: saas-theme.min.css
+        overwrite: false
+        url: https://raw.githubusercontent.com/codingforentrepreneurs/SaaS-Foundations/main/src/staticfiles/theme/saas-theme.min.css
+      - name: flowbite.min.css
+        overwrite: false
+        url: https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.2/flowbite.min.css 
+      - name: flowbite.min.js
+        overwrite: false
+        url: https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.2/flowbite.min.js
+      - name: flowbite.min.js.map
+        overwrite: false
+        url: https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.2/flowbite.min.js.map
+  staticfiles_dev:
+    name: vendor
+    destination: src/staticfiles/vendors
+    verbose: true
+    raise_on_error: true
+    overwrite: true
+    files:
+      - name: saas-theme.min.css
+        overwrite: false
+        url: https://raw.githubusercontent.com/codingforentrepreneurs/SaaS-Foundations/main/src/staticfiles/theme/saas-theme.min.css
+      - name: flowbite.min.css
+        overwrite: false
+        url: https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.2/flowbite.min.css 
+      - name: flowbite.min.js
+        overwrite: false
+        url: https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.2/flowbite.min.js
+      - name: flowbite.min.js.map
+        overwrite: false
+        url: https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.2/flowbite.min.js.map

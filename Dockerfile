@@ -41,7 +41,9 @@ COPY requirements.txt /tmp/requirements.txt
 COPY ./src /code
 
 # Install the Python project requirements
+RUN pip install --upgrade pip
 RUN pip install -r /tmp/requirements.txt
+RUN pip install gunicorn rav --upgrade
 
 ARG DJANGO_SECRET_KEY
 ENV DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
@@ -49,10 +51,14 @@ ENV DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
 ARG DJANGO_DEBUG=0
 ENV DJANGO_DEBUG=${DJANGO_DEBUG}
 
+
+COPY ./rav.yaml /tmp/rav.yaml
+RUN rav download staticfiles_prod -f /tmp/rav.yaml
+
 # database isn't available during build
 # run any other commands that do not need the database
 # such as:
-RUN python manage.py vendor_pull
+# RUN python manage.py vendor_pull
 RUN python manage.py collectstatic --noinput
 # whitenoise -> s3
 

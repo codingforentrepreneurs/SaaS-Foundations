@@ -9,9 +9,8 @@ The goal of this project is to learn how to create a reusable foundation for bui
 
 - Deploy Django on [Railway](https://kirr.co/qysgeu) with [this Dockerfile and guide](https://www.codingforentrepreneurs.com/blog/deploy-django-on-railway-with-this-dockerfile/)
 - Create a One-Off Secret Key for Django [blog post](https://www.codingforentrepreneurs.com/blog/create-a-one-off-django-secret-key/)
-
-
-Thank you to [Neon](https://kirr.co/eu0b31) for helping bring this course to life!
+- This repo started as a course [SaaS Foundations](https://www.codingforentrepreneurs.com/courses/saas-foundations).
+- Need a more advanced SaaS template? Check out [CFE Run](https://run.codingforentrepreneurs.com/).
 
 
 ## Getting Started
@@ -38,11 +37,15 @@ c:\Python312\python.exe -m venv venv
 .\venv\Scripts\activate
 ```
 
-### Install Requirements
+### Install Requirements with Rav
+[Rav](https://github.com/jmitchel3/rav) is a simple way to run commands and download static files (css, images, js, etc) from external sources.
+
 ```bash
 # with venv activated
-pip install pip --upgrade && pip install -r requirements.txt
+pip install pip rav --upgrade
+rav run install
 ```
+> Use `python -m rav run install` if for some reason `rav` is not in your path.
 
 ### Sample dotenv to dotnev
 
@@ -79,64 +82,6 @@ python -c 'import secrets; print(secrets.token_urlsafe(64))'
 ```
 
 Once you have this value, add update `DJANGO_SECRET_KEY` in `.env`.
-
-
-### Create [Neon](https://kirr.co/eu0b31) Postgres Database
-
-
-#### Install Neon CLI
-Using the [Neon cli](https://neon.tech/docs/reference/cli-install) via [homebrew](https://brew.sh/):
-
-```bash
-brew install neonctl
-```
-
-#### Login to Neon CLI
-
-```bash
-neonctl auth
-```
-This will open a browser window to login.
-
-####  Create a new Neon project (optional)
-```bash
-neonctl projects create --name saas
-```
-
-#### Get the Project ID
-
-Once created, get the project id: 
-
-```bash
-neonctl projects list
-```
-Projects
-
-```bash
-┌──────────────────────────┬────────────────────────────┬───────────────┬──────────────────────┐
-│ Id                       │ Name                       │ Region Id     │ Created At           │
-├──────────────────────────┼────────────────────────────┼───────────────┼──────────────────────┤
-│ steep-base-11409687      │ saas                       │ aws-us-east-2 │ 2024-06-02T04:03:07Z │
-└──────────────────────────┴────────────────────────────┴───────────────┴──────────────────────┘
-```
-
-```bash
-PROJECT_ID=steep-base-11409687
-```
-Replace `steep-base-11409687` with your project id.
-
-Or using the shortcut:
-
-```bash
-PROJECT_ID=$(neonctl projects list | grep "saas" | awk -F '│' '{print $2}' | xargs)
-```
-
-#### Get the Database Connection String
-
-```bash
-neonctl connection-string --project-id "$PROJECT_ID"
-```
-Set this value to `DATABASE_URL` in `.env`. 
 
 
 ### Run Migrations
@@ -176,4 +121,30 @@ python manage.py runserver
 
 Ready to roll! 🚀
 
-Much more coming soon!
+
+### Useful Rav Commands
+
+Review the [rav.yaml](./rav.yaml) (or [rav](https://github.com/jmitchel3/rav) documentation) for available command shortcuts, here are some useful ones:
+
+- `rav run install` - Install requirements based on `scripts.install`
+- `rav run install_dev` - Install requirements for development
+- `rav run makemigrations` - Make migrations
+- `rav run migrate` - Run migrations
+- `rav run dev` - Run the development server
+- `rav run test` - Run the tests
+- `rav run vendors_pull` - Download vendor static files
+- `rav run collectstatic` - Collect static files
+- `rav download staticfiles_prod` - Download vendor static files for production
+- `rav download staticfiles_dev` - Download vendor static files for development
+
+
+
+### Changelog
+
+- 2025-09-02: 
+  - Upgraded to Django 5.2
+  - Added Slippers for better AllAuth UI Support
+  - Implemented Rav to manage requirements and static files
+  - Updated Dockerfile to use Rav
+  - Updated README to include Rav
+  - Dropped only Neon in favor of any Postgres database (aim to make it more generic)
